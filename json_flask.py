@@ -23,6 +23,12 @@ def json():
 
     if request.is_json:
         req = request.get_json()
-        return "JSON Recieved", 200
+        response = {
+            "message": "JSON recieved",
+            "name": req.get("name")
+        }
+        res = make_response(jsonify(response), 200)
+        return res
     else:
-        return "No JSON recieved", 400
+        res = make_response(jsonify({"message": "No JSON recieved"}), 400)
+        return res
